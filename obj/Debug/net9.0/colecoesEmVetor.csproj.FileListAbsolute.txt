@@ -12,3 +12,4 @@ C:\Users\User\Documents\Csharp\colecoesEmVetor\obj\Debug\net9.0\refint\colecoesE
 C:\Users\User\Documents\Csharp\colecoesEmVetor\obj\Debug\net9.0\colecoesEmVetor.pdb
 C:\Users\User\Documents\Csharp\colecoesEmVetor\obj\Debug\net9.0\colecoesEmVetor.genruntimeconfig.cache
 C:\Users\User\Documents\Csharp\colecoesEmVetor\obj\Debug\net9.0\ref\colecoesEmVetor.dll
+C:\Users\User\Documents\Csharp\colecoesEmVetor\obj\Debug\net9.0\colecoesEmVetor.sourcelink.json

@@ -57,13 +57,13 @@ class CListaVet<T> : IEnumerable<T>
         get
         {
             if (posicao < 0 || posicao >= Qtde)
-                throw new ArgumentException("Índice inválido ou inexistente");
+                throw new ArgumentOutOfRangeException(nameof(posicao), "O índice especificado estava fora do intervalo válido. Deve ser não-negativo e menor que a quantidade de itens da lista.");
             return Itens[posicao];
         }
         set
         {
             if (posicao < 0 || posicao >= Qtde)
-                throw new ArgumentException("Índice inválido ou inexistente");
+                throw new ArgumentOutOfRangeException(nameof(posicao), "O índice especificado estava fora do intervalo válido. Deve ser não-negativo e menor que a quantidade de itens da lista.");
             Itens[posicao] = value;
         }
     }
@@ -102,7 +102,7 @@ class CListaVet<T> : IEnumerable<T>
     public void RemoveIndice(int posicao)
     {
         if (posicao < 0 || posicao >= Qtde)
-            throw new ArgumentException("Índice inválido ou inexistente");
+            throw new ArgumentOutOfRangeException(nameof(posicao), "O índice especificado estava fora do intervalo válido. Deve ser não-negativo e menor que a quantidade de itens da lista.");
         for (int i = posicao; i < Qtde - 1; i++)
             Itens[i] = Itens[i + 1]; //desloca os elementos para a esquerda a partir da posição removida.
         //libera a referência da cópia do último item para o GC (muito útil para objetos do tipo referência)
@@ -113,7 +113,7 @@ class CListaVet<T> : IEnumerable<T>
     public void InsereIndice(T elemento, int posicao)
     {
         if (posicao < 0 || posicao > Qtde)
-            throw new ArgumentException("Índice inválido ou inexistente");
+            throw new ArgumentOutOfRangeException(nameof(posicao), "O índice especificado estava fora do intervalo válido. Deve ser não-negativo e menor que a quantidade de itens da lista.");
         if (Qtde == Itens.Length)
             Redimenciona(Qtde * 2);
         for (int i = Qtde - 1; i >= posicao; i--)
@@ -124,6 +124,7 @@ class CListaVet<T> : IEnumerable<T>
 
     public void Inverte()
     {
+        if (Qtde < 2) return;
         int inicio = 0;
         int fim = Qtde - 1;
         while (inicio < fim)
@@ -253,7 +254,6 @@ class CListaVet<T> : IEnumerable<T>
 
     public void Limpar()
     {
-        // zerar os slotes para liberar referências em caso de dados do tipo objeto
         int limite = Qtde;
         for (int i = 0; i < limite; i++)
         {

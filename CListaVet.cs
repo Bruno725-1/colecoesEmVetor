@@ -14,7 +14,7 @@ class CListaVet<T> : IEnumerable<T>
     public CListaVet(int tamanho)
     {
         if (tamanho < 0)
-            throw new ArgumentException("A capacidade da lista não pode ser um número negativo");
+            throw new ArgumentException("A capacidade da lista não pode ser um número negativo.", nameof(tamanho));
 
         Itens = new T[tamanho];
     }
@@ -44,11 +44,11 @@ class CListaVet<T> : IEnumerable<T>
         if (tamanho <= 0)
             tamanho = 6; // impede que o novo vetor seja iniciado com comprimento inválido
 
-        T[] vetor = new T[tamanho];
+        T[] novoItens = new T[tamanho];
         for (int i = 0; i < Qtde; i++)
-            vetor[i] = Itens[i];
+            novoItens[i] = Itens[i];
 
-        Itens = vetor;
+        Itens = novoItens;
     }
 
     // altera ou retorna o valor de um índice especificado
@@ -96,7 +96,7 @@ class CListaVet<T> : IEnumerable<T>
             }
         }
         if (!achou)
-            throw new ArgumentException("Elemento não encontrado");
+            throw new ArgumentException("Elemento não encontrado.", nameof(elemento));
     }
 
     public void RemoveIndice(int posicao)
@@ -105,7 +105,6 @@ class CListaVet<T> : IEnumerable<T>
             throw new ArgumentOutOfRangeException(nameof(posicao), "O índice especificado estava fora do intervalo válido. Deve ser não-negativo e menor que a quantidade de itens da lista.");
         for (int i = posicao; i < Qtde - 1; i++)
             Itens[i] = Itens[i + 1]; //desloca os elementos para a esquerda a partir da posição removida.
-        //libera a referência da cópia do último item para o GC (muito útil para objetos do tipo referência)
         Itens[Qtde - 1] = default!;
         Qtde--;
     }
@@ -113,7 +112,7 @@ class CListaVet<T> : IEnumerable<T>
     public void InsereIndice(T elemento, int posicao)
     {
         if (posicao < 0 || posicao > Qtde)
-            throw new ArgumentOutOfRangeException(nameof(posicao), "O índice especificado estava fora do intervalo válido. Deve ser não-negativo e menor que a quantidade de itens da lista.");
+            throw new ArgumentOutOfRangeException(nameof(posicao), "O índice especificado estava fora do intervalo válido. Deve ser não-negativo e menor ou igual a quantidade de itens da lista.");
         if (Qtde == Itens.Length)
             Redimenciona(Qtde * 2);
         for (int i = Qtde - 1; i >= posicao; i--)
@@ -124,7 +123,6 @@ class CListaVet<T> : IEnumerable<T>
 
     public void Inverte()
     {
-        if (Qtde < 2) return;
         int inicio = 0;
         int fim = Qtde - 1;
         while (inicio < fim)
@@ -162,7 +160,7 @@ class CListaVet<T> : IEnumerable<T>
                 return;
             }
         }
-        throw new ArgumentException("O elemento passado como referência não foi encontrado");
+        throw new ArgumentException("O elemento de referência especificado não foi encontrado na lista.", nameof(referencia));
     }
 
     public void InsereDepoisDe(T elementoAInserir, T referencia)
@@ -181,7 +179,7 @@ class CListaVet<T> : IEnumerable<T>
                 return;
             }
         }
-        throw new ArgumentException("O elemento passado como referência não foi encontrado");
+        throw new ArgumentException("O elemento de referência especificado não foi encontrado na lista.", nameof(referencia));
     }
 
     public void Ordenar()
